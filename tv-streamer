@@ -1,0 +1,12 @@
+#!/sbin/runscript
+
+pidfile=/var/run/tv-streamer.pid
+command_background="true"
+command=/usr/bin/ffmpeg
+command_args="$INPUT_ARGS -i $INPUT_LOCATION $OUTPUT_ARGS $OUTPUT_LOCATION"
+
+start_pre() {
+	  ebegin "Configuring stream source..."
+	  v4l2-ctl -c $V4L2_CTRLS
+	  eend $?
+}
